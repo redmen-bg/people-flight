@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <p *ngFor="let person of peopleFlightPassInfoService.people" class="col-lg-3">
+    <p *ngFor="let person of people | async" class="col-lg-3">
     <mat-card (click)="goToPersonFlights(person)"  >
       <mat-card-header>
         <mat-card-title>{{person.name}}</mat-card-title>

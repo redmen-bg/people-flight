@@ -12,6 +12,10 @@ import { PeopleFlightPassInfoService } from './shared/people-flight-pass-info.se
 import { appRoutes } from './app.routes';
 import { AppSharedMaterialElementsModule } from './app-shared-material-elements-module/app-shared-material-elements.module';
 import { HeaderComponent } from './header/header.component';
+import { NgxsModule } from '@ngxs/store';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { PeopleState } from './state/people.state';
 
 @NgModule({
   declarations: [
@@ -24,8 +28,11 @@ import { HeaderComponent } from './header/header.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    NgxsModule.forRoot([PeopleState]),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
     RouterModule.forRoot(appRoutes),
+    ReactiveFormsModule,
     AppSharedMaterialElementsModule
   ],
   providers: [PeopleFlightPassInfoService],

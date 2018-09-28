@@ -4,8 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Person } from '../models/person.model';
 import { Flight } from '../models/flight.model';
 import { FormGroup, FormControl } from '@angular/forms';
-import { debounceTime } from 'rxjs/operators';
-import { Subscription } from 'rxjs';
+import { debounceTime, switchMap, filter, map, concatMap, tap } from 'rxjs/operators';
+import { Subscription, Observable } from 'rxjs';
+import { Store } from '@ngxs/store';
 @Component({
   selector: 'app-flights-by-user',
   templateUrl: './flights-by-user.component.html',
@@ -20,29 +21,33 @@ export class FlightsByUserComponent implements OnInit, OnDestroy {
   public filter: FormControl;
   public formSubscription: Subscription;
 
-  constructor(private peopleFlightPassInfoService: PeopleFlightPassInfoService, private route: ActivatedRoute) {
+  constructor(private peopleFlightPassInfoService: PeopleFlightPassInfoService, private route: ActivatedRoute, private store: Store) {
     this.filter = new FormControl('');
     this.formGroup = new FormGroup({
       'filter': this.filter
     })
-    this.formSubscription = this.formGroup.valueChanges
+    this.formSubscription = this.filter.valueChanges
       .pipe(
-        debounceTime(300)
-      )
-      .subscribe((val) => {
-        if (val.filter === "") {
-          this.flightsToFilter = this.flights;
-        } else {
-          this.flightsToFilter = this.flights
-            .filter((flight) => flight.cityOrigin.toLowerCase().includes(val.filter.toLowerCase()) || flight.cityDestination.toLowerCase().includes(val.filter.toLowerCase()));
-        }
+        debounceTime(300),
+      ).subscribe(str => {
+        this.flightsToFilter = this.flights.filter(f => f.cityOrigin.toLowerCase().includes(str.toLowerCase()) || f.cityDestination.toLowerCase().includes(str.toLowerCase()))
       })
+
   }
 
   ngOnInit() {
-    this.person = this.peopleFlightPassInfoService.people.find((person) => person._id == this.route.snapshot.paramMap.get('personId'));
-    this.flights = this.person.flights;
-    this.flightsToFilter = this.flights;
+    let personId: string = this.route.snapshot.paramMap.get('personId');
+    this.store.select(state => {
+      let person = state.people.people.find(p => p._id === personId)
+      if (person) {
+        return person.flights;
+      }
+    }).subscribe(flights => {
+      this.flights = flights
+      this.flightsToFilter = flights
+    });
+
+
   }
   onChange(companyName: String) {
     if (!companyName) {

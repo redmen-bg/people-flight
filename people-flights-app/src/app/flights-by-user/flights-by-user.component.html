@@ -4,7 +4,7 @@
       <mat-form-field class="col-md-4">
         <mat-select (selectionChange)="onChange($event.value)" placeholder="Company name filter">
           <mat-option>--</mat-option>
-          <mat-option *ngFor="let flight of flights" [value]="flight.company">
+          <mat-option *ngFor="let flight of flights " [value]="flight.company">
             {{flight.company}}
           </mat-option>
         </mat-select>
@@ -16,7 +16,7 @@
     </form>
   </div>
   <div class="row">
-    <p *ngFor="let flight of flightsToFilter" class="col-lg-3">
+    <p *ngFor="let flight of flightsToFilter " class="col-lg-3">
       <mat-card>
         <mat-card-header>
           <mat-card-title>{{flight.company}}</mat-card-title>
