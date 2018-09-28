@@ -6,7 +6,7 @@ export class Flight {
         public cityDestinationPicture: String,
         public airportOrigin: String,
         public airportDestination: String,
-        public dateTakeOff: String,
-        public dateLanding: String,
+        public dateTakeOff: string,
+        public dateLanding: string,
     ) { }
 }

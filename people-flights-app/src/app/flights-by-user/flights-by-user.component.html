@@ -1,1 +1,42 @@
-<p *ngFor = "let flight of flights">{{flight.company}}</p>
+<div class="container">
+  <div class="row">
+    <form class="form-inline" [formGroup]="formGroup">
+      <mat-form-field class="col-md-4">
+        <mat-select (selectionChange)="onChange($event.value)" placeholder="Company name filter">
+          <mat-option>--</mat-option>
+          <mat-option *ngFor="let flight of flights" [value]="flight.company">
+            {{flight.company}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="col-md-8">
+        <input matInput placeholder="Filter City origin or Destination" formControlName="filter">
+      </mat-form-field>
+    </form>
+  </div>
+  <div class="row">
+    <p *ngFor="let flight of flightsToFilter" class="col-lg-3">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{flight.company}}</mat-card-title>
+        </mat-card-header>
+        <img mat-card-image src="http://placehold.it/32x32" alt="{{flight.cityDestination}}">
+        <mat-card-content>
+          <p> City Origin: {{flight.cityOrigin}}
+          </p>
+          <p> Ciry Destination: {{flight.cityDestination}}
+          </p>
+          <p> Airport Origin: {{flight.airportOrigin}}
+          </p>
+          <p> Airport Destination: {{flight.airportDestination}}
+          </p>
+          <p> Date TakeOff: {{flight.dateTakeOff}}
+          </p>
+          <p> Date Landing: {{flight.dateLanding}}
+          </p>
+        </mat-card-content>
+      </mat-card>
+    </p>
+  </div>
+</div>
