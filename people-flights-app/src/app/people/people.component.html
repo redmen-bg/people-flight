@@ -1,27 +1,25 @@
-<div>
-  <ul>
-    <li (click)="goToPersonFlights(person)" *ngFor="let person of peopleFlightPassInfoService.people">{{person.name}}</li>
-  </ul>
-</div>
 <div class="container">
-  <mat-card (click)="goToPersonFlights(person)" *ngFor="let person of peopleFlightPassInfoService.people" class="example-card">
-    <mat-card-header>
-      <mat-card-title>{{person.name}}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image src="{{person.picture}}" alt="{{person.name}}">
-    <mat-card-content>
-      <p> Active: {{person.isActive}}
-      </p>
-      <p> Price: {{person.price}}
-      </p>
-      <p> Email: {{person.email}}
-      </p>
-      <p> Address: {{person.address}}
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
+  <div class="row">
+    <p *ngFor="let person of peopleFlightPassInfoService.people" class="col-lg-3">
+    <mat-card (click)="goToPersonFlights(person)"  >
+      <mat-card-header>
+        <mat-card-title>{{person.name}}</mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="{{person.picture}}" alt="{{person.name}}">
+      <mat-card-content>
+        <p> Active: {{person.isActive}}
+        </p>
+        <p> Price: {{person.price}}
+        </p>
+        <p> Email: {{person.email}}
+        </p>
+        <p> Address: {{person.address}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary">To Flights</button>
+      </mat-card-actions>
+    </mat-card>
+  </p>
+  </div>
 </div>

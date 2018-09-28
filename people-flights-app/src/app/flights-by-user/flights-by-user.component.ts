@@ -17,7 +17,6 @@ export class FlightsByUserComponent implements OnInit {
   ngOnInit() {
     this.person = this.peopleFlightPassInfoService.people.find((person)=>person._id==this.route.snapshot.paramMap.get('personId'));
     this.flights = this.person.flights;
-    console.log(this.flights);
   }
 
 }

@@ -10,12 +10,14 @@ import { FlightsByUserComponent } from './flights-by-user/flights-by-user.compon
 import { PeopleFlightPassInfoService } from './shared/people-flight-pass-info.service';
 import { appRoutes } from './app.routes';
 import { AppSharedMaterialElementsModule } from './app-shared-material-elements-module/app-shared-material-elements.module';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PeopleComponent,
     FlightsByUserComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
